@@ -1,16 +1,14 @@
 <?php
 
-$name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
-$email = filter_input(INPUT_POST, 'email', FILTER_DEFAULT);
-$password = filter_input(INPUT_POST, 'password', FILTER_DEFAULT);
+use app\classes\Validation;
+
+$validation = new Validation;
+
+$validate = $validation->validate($_POST);
 
 
 $user = new \app\models\User();
-$cadastrado = $user->insert([
-   'name' => $name,
-    'email' => $email,
-    'password' => $password
-]);
+$cadastrado = $user->insert($validate);
 
 if ($cadastrado) {
     return header('location:/');

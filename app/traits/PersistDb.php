@@ -10,6 +10,8 @@ trait PersistDb{
 
     public function insert($attributes){
 
+        $attributes = (array) $attributes;
+
         $sql = Insert::sql($this->table, $attributes);
 
         $insert = $this->connection->prepare($sql);
@@ -19,6 +21,8 @@ trait PersistDb{
     }
 
     public function update($attributes, $where){
+
+        $attributes = (array) $attributes;
 
         $sql = (new Update)->where($where)->sql($this->table, $attributes);
 
